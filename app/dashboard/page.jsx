@@ -6,6 +6,7 @@ import { LogOut, LayoutDashboard, DollarSign, Activity, Users, PlusCircle, Trend
 import Investments from '@/components/Investments';
 import ReferralTree from '@/components/ReferralTree';
 import CreateInvestment from '@/components/CreateInvestment';
+import PerformanceChart from '@/components/PerformanceChart';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -148,12 +149,19 @@ const Dashboard = () => {
         {/* Tab Content */}
         <div className="mt-6">
           {activeTab === 'overview' && (
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
-              <div className="col-span-1 xl:col-span-2 order-2 xl:order-1">
-                 <Investments preview={true} refreshKey={refreshKey} />
+            <div className="space-y-6 sm:space-y-8">
+              {/* Top Row: Chart & New Investment */}
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
+                <div className="col-span-1 xl:col-span-2 order-2 xl:order-1">
+                   <PerformanceChart refreshKey={refreshKey} />
+                </div>
+                <div className="col-span-1 order-1 xl:order-2">
+                   <CreateInvestment onInvested={handleInvestmentCreated} />
+                </div>
               </div>
-              <div className="col-span-1 order-1 xl:order-2">
-                 <CreateInvestment onInvested={handleInvestmentCreated} />
+              {/* Bottom Row: Recent Investments */}
+              <div>
+                 <Investments preview={true} refreshKey={refreshKey} />
               </div>
             </div>
           )}
