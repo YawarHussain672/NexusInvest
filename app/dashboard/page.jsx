@@ -59,9 +59,16 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-gray-100 selection:bg-indigo-500/30 font-sans">
+    <div className="min-h-screen bg-black text-gray-100 selection:bg-indigo-500/30 font-sans relative overflow-x-hidden">
+      {/* Dynamic colorful blobs for the waterdrop effect to distort */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-[100px] animate-pulse relative z-0" style={{ animationDuration: '8s' }} />
+        <div className="absolute top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-[100px] animate-pulse relative z-0" style={{ animationDuration: '12s' }} />
+        <div className="absolute -bottom-[20%] left-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 blur-[100px] animate-pulse relative z-0" style={{ animationDuration: '10s' }} />
+      </div>
+
       {/* Navbar - iOS style frosted top bar */}
-      <nav className="relative z-20 sticky top-0 bg-black/70 backdrop-blur-3xl border-b border-[#38383A]/60 px-4 sm:px-6 py-3 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+      <nav className="relative z-20 sticky top-0 waterdrop px-4 sm:px-6 py-3 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mx-4 mt-4 rounded-3xl m-auto max-w-7xl">
         <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center space-x-2">
             <Activity className="h-6 w-6 text-indigo-500" />
@@ -78,9 +85,9 @@ const Dashboard = () => {
           </button>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="text-[13px] flex items-center w-full justify-between sm:justify-start bg-[#1C1C1E] py-1.5 px-3 rounded-full border border-[#38383A]">
-            <span className="text-gray-400 mr-2 whitespace-nowrap font-medium">Ref Code:</span>
-            <span className="font-mono text-indigo-400 font-semibold select-all break-all text-[11px] sm:text-[13px]">
+          <div className="text-[13px] flex items-center w-full justify-between sm:justify-start bg-black/30 backdrop-blur-sm py-1.5 px-3 rounded-full border border-white/10 shadow-inner">
+            <span className="text-gray-300 mr-2 whitespace-nowrap font-medium">Ref Code:</span>
+            <span className="font-mono text-cyan-400 font-semibold select-all break-all text-[11px] sm:text-[13px]">
               {stats?.referralCode}
             </span>
           </div>
@@ -129,16 +136,16 @@ const Dashboard = () => {
 
         {/* Tabs */}
         {/* iOS style Segmented Control Tabs */}
-        <div className="flex justify-center mb-8 relative z-10">
-          <div className="bg-[#1C1C1E] p-1 rounded-xl flex space-x-1 w-full max-w-md border border-[#38383A]/50 shrink-0 overflow-x-auto hide-scrollbar">
+        <div className="flex justify-center mb-8 relative z-20">
+          <div className="waterdrop p-1.5 rounded-2xl flex space-x-1 w-full max-w-md shrink-0 overflow-x-auto hide-scrollbar">
             {['overview', 'investments', 'network'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-1.5 px-4 text-[13px] font-medium rounded-lg transition-all duration-200 capitalize whitespace-nowrap ${
+                className={`flex-1 py-2 px-4 text-[14px] font-semibold rounded-xl transition-all duration-300 capitalize whitespace-nowrap ${
                   activeTab === tab
-                    ? 'bg-[#38383A] text-white shadow-sm'
-                    : 'text-gray-400 hover:text-gray-200'
+                    ? 'bg-white/10 text-white shadow-[0_2px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)]'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {tab}
@@ -175,16 +182,17 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, value, icon, subtitle, colorClass }) => (
-  <div className={`bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-5 transition-transform hover:scale-[1.02] duration-300 ease-out`}>
-    <div className="flex items-center justify-between mb-3">
-      <p className="text-[15px] font-medium text-gray-400">{title}</p>
-      <div className={`p-2 rounded-full bg-[#38383A]/40 ${colorClass}`}>
+  <div className="waterdrop rounded-[2rem] p-6 transition-all hover:scale-[1.02] duration-300 ease-out group relative z-10 overflow-hidden">
+    <div className={`absolute top-0 right-0 w-32 h-32 opacity-20 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none transition-opacity group-hover:opacity-40`} style={{ background: colorClass.includes('30D158') ? '#30D158' : colorClass.includes('0A84FF') ? '#0A84FF' : colorClass.includes('BF5AF2') ? '#BF5AF2' : '#FF9F0A' }}></div>
+    <div className="flex items-center justify-between mb-4 relative z-10">
+      <p className="text-[15px] font-medium text-gray-300/80">{title}</p>
+      <div className={`p-2.5 rounded-2xl bg-white/5 shadow-inner border border-white/10 ${colorClass}`}>
         {icon}
       </div>
     </div>
-    <div>
-      <p className="text-3xl font-bold tracking-tight text-white mb-1">{value}</p>
-      {subtitle && <p className={`text-[13px] font-medium ${colorClass}`}>{subtitle}</p>}
+    <div className="relative z-10">
+      <p className="text-3xl font-extrabold tracking-tight text-white mb-1">{value}</p>
+      {subtitle && <p className={`text-[13px] font-bold ${colorClass}`}>{subtitle}</p>}
     </div>
   </div>
 );

@@ -60,7 +60,7 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
 
   if (loading) {
     return (
-      <div className="bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-6 shadow-xl h-[300px] flex items-center justify-center">
+      <div className="waterdrop rounded-[2rem] p-6 shadow-xl h-[300px] flex items-center justify-center">
         <div className="animate-pulse flex space-x-4">
           <div className="rounded-full bg-gray-700 h-10 w-10"></div>
           <div className="flex-1 space-y-6 py-1">
@@ -79,13 +79,13 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
   }
 
   return (
-    <div className="bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-6 shadow-xl h-[320px] flex flex-col relative overflow-hidden">
-      <div className="flex justify-between items-center mb-6">
+    <div className="waterdrop rounded-[2rem] p-6 relative overflow-hidden h-[320px] flex flex-col z-10">
+      <div className="flex justify-between items-center mb-6 z-10 relative">
         <h3 className="text-xl font-bold text-white tracking-tight">7-Day Growth Overview</h3>
       </div>
       
       {data.length === 0 || data.every(d => d.Invested === 0) ? (
-        <div className="flex-1 flex items-center justify-center text-gray-400 bg-black/40 border border-dashed border-[#38383A] rounded-2xl">
+        <div className="flex-1 flex items-center justify-center text-gray-300 bg-black/30 backdrop-blur-md shadow-inner border border-white/10 rounded-2xl z-10 relative">
           <p>No investment data to chart yet.</p>
         </div>
       ) : (
@@ -124,18 +124,19 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
               />
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: '#1C1C1E', 
-                  border: '1px solid #38383A',
+                  background: 'rgba(30,30,32,0.6)', 
+                  backdropFilter: 'blur(24px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '1rem',
                   color: '#fff',
-                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)'
+                  boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.5)'
                 }}
                 itemStyle={{ color: '#fff', fontWeight: '500' }}
               />
               <Area 
                 type="monotone" 
                 dataKey="Invested" 
-                stroke="#0A84FF" 
+                stroke="#06b6d4" 
                 strokeWidth={3}
                 fillOpacity={1} 
                 fill="url(#colorInvested)" 
@@ -143,7 +144,7 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
               <Area 
                 type="monotone" 
                 dataKey="ROI" 
-                stroke="#BF5AF2" 
+                stroke="#a855f7" 
                 strokeWidth={3}
                 fillOpacity={1} 
                 fill="url(#colorRoi)" 

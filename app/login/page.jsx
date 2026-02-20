@@ -29,14 +29,14 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4 relative overflow-hidden selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden selection:bg-indigo-500/30">
       {/* Dynamic Ambient Background */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[10%] right-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-[100px] animate-pulse" style={{ animationDuration: '10s' }} />
       
-      <div className="w-full max-w-md p-8 bg-gray-800/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/50 relative z-10 transition-all duration-300">
+      <div className="w-full max-w-md p-8 waterdrop rounded-[2.5rem] relative z-10 transition-all duration-300">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-2xl mb-4 border border-indigo-500/20">
+          <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-2xl mb-5 shadow-inner border border-white/10">
             <svg className="w-8 h-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
@@ -55,7 +55,7 @@ const Login = () => {
                 id="email"
                 type="email"
                 required
-                className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+                className="w-full px-5 py-4 bg-black/30 backdrop-blur-md shadow-inner border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +67,7 @@ const Login = () => {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 required
-                className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all pr-12"
+                className="w-full px-5 py-4 bg-black/30 backdrop-blur-md shadow-inner border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300 pr-12"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -82,19 +82,19 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-4">
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-500/20 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-900 transition-all disabled:opacity-50"
+              className="w-full flex justify-center py-4 px-4 rounded-2xl text-[15px] font-bold text-white waterdrop-button transition-all duration-300 hover:brightness-110 disabled:opacity-50 active:scale-[0.98]"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
           
-          <div className="text-center pt-2">
-            <Link href="/register" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
-              Don't have an account? <span className="text-indigo-400 hover:text-indigo-300">Register</span>
+          <div className="text-center pt-4">
+            <Link href="/register" className="text-[13px] font-semibold text-gray-400 hover:text-white transition-colors">
+              Don't have an account? <span className="text-cyan-400 hover:text-cyan-300">Register</span>
             </Link>
           </div>
         </form>

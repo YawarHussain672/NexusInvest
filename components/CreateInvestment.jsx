@@ -37,29 +37,29 @@ const CreateInvestment = ({ onInvested }) => {
   };
 
   return (
-    <div className="bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-6 relative overflow-hidden">
+    <div className="waterdrop rounded-[2rem] p-6 relative overflow-hidden group">
       
       <div className="flex items-center justify-between mb-6 relative z-10">
         <h3 className="text-xl font-bold text-white tracking-tight">Invest</h3>
-        <span className="text-[13px] font-semibold text-[#30D158] bg-[#30D158]/10 px-3 py-1 rounded-full">
+        <span className="text-[13px] font-semibold text-emerald-400 waterdrop-badge px-3 py-1 rounded-full">
           {currentPlan.roi} Daily ROI
         </span>
       </div>
       
       <form onSubmit={handleInvest} className="space-y-5 relative z-10">
-        {error && <div className="p-3 text-[13px] text-red-500 bg-red-500/10 rounded-xl font-medium">{error}</div>}
+        {error && <div className="p-3 text-[13px] text-red-400 bg-red-400/10 border border-red-500/20 rounded-xl font-medium">{error}</div>}
         
         {/* Segmented Control for Plans */}
-        <div className="bg-black/50 p-1 rounded-xl flex items-center justify-between border border-[#38383A]/50">
+        <div className="bg-black/30 backdrop-blur-md shadow-inner p-1.5 rounded-2xl flex items-center justify-between border border-white/10">
           {Object.keys(plans).map((p) => (
             <button
               key={p}
               type="button"
               onClick={() => setPlan(p)}
-              className={`flex-1 py-2 text-[13px] font-semibold rounded-lg transition-all duration-200 ${
+              className={`flex-1 py-2 text-[13px] font-semibold rounded-xl transition-all duration-300 ${
                 plan === p
-                  ? 'bg-[#38383A] text-white shadow-sm'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                  ? 'bg-white/10 text-white shadow-[0_2px_10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)]'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
               }`}
             >
               {p}
@@ -69,8 +69,8 @@ const CreateInvestment = ({ onInvested }) => {
 
         {/* Minimal Amount Input */}
         <div>          
-          <div className="relative flex items-center bg-black/40 border border-[#38383A] rounded-2xl overflow-hidden focus-within:border-[#0A84FF] focus-within:ring-1 focus-within:ring-[#0A84FF] transition-all">
-             <div className="pl-5 pr-2 text-gray-500 font-medium text-lg">$</div>
+          <div className="relative flex items-center bg-black/30 backdrop-blur-md shadow-inner border border-white/10 rounded-2xl overflow-hidden focus-within:border-cyan-500/50 focus-within:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300">
+             <div className="pl-5 pr-2 text-gray-400 font-medium text-lg">$</div>
              <input
                 type="number"
                 min={currentPlan.min}
@@ -82,10 +82,10 @@ const CreateInvestment = ({ onInvested }) => {
               />
               <div className="pr-5 text-[13px] font-bold text-gray-500 uppercase tracking-wider">USD</div>
           </div>
-          <div className="mt-3 text-[13px] text-gray-500 flex justify-between px-2 font-medium">
+          <div className="mt-3 text-[13px] text-gray-400 flex justify-between px-2 font-medium">
              <span>Lock-in: <span className="text-white">{currentPlan.duration}</span></span>
              {amount && Number(amount) >= currentPlan.min ? (
-                <span className="text-[#30D158]">Est. Daily: ${((Number(amount) * parseFloat(currentPlan.roi)) / 100).toFixed(2)}</span>
+                <span className="text-emerald-400">Est. Daily: ${((Number(amount) * parseFloat(currentPlan.roi)) / 100).toFixed(2)}</span>
              ) : (
                 <span>Dynamic Est.</span>
              )}
@@ -95,7 +95,7 @@ const CreateInvestment = ({ onInvested }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 px-4 rounded-2xl text-[15px] font-bold text-white bg-[#0A84FF] hover:bg-[#0A84FF]/90 focus:outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed group mt-4 active:scale-[0.98]"
+          className="w-full py-4 px-4 rounded-2xl text-[15px] font-bold text-white waterdrop-button transition-all duration-300 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed group mt-4 active:scale-[0.98]"
         >
           {loading ? (
             <span className="flex items-center justify-center">
