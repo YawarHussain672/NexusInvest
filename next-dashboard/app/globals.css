@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-dark-purple: #1a1625;
+  --color-dark-surface: #2f2b3a;
+}
+
+body {
+  @apply bg-gray-900 text-white;
+}

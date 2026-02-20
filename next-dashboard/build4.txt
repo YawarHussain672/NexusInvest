@@ -1,0 +1,52 @@
+﻿
+> next-dashboard@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 8.8s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/12) ...
+  Generating static pages using 7 workers (3/12) 
+  Generating static pages using 7 workers (6/12) 
+node.exe : Error 
+occurred prerendering 
+page "/login". Read 
+more: https://nextjs.o
+rg/docs/messages/prere
+nder-error
+At C:\Program Files\no
+dejs\npm.ps1:29 char:3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Error occu   
+ rred ...prerender    
+-error:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+TypeError: Cannot 
+destructure property 
+'auth' of 'a' as it 
+is undefined.
+    at ignore-listed 
+frames {
+  digest: '3176699378'
+}
+Export encountered an 
+error on /login/page: 
+/login, exiting the 
+build.
+Γ¿» Next.js build 
+worker exited with 
+code: 1 and signal: 
+null
