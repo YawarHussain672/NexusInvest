@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { CheckCircle2, Clock } from 'lucide-react';
 
-const Investments = ({ preview = false }) => {
+const Investments = ({ preview = false, refreshKey = 0 }) => {
   const [investments, setInvestments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +19,7 @@ const Investments = ({ preview = false }) => {
       }
     };
     fetchInvestments();
-  }, []);
+  }, [refreshKey]);
 
   if (loading) return <div className="animate-pulse h-32 bg-gray-800 rounded-xl"></div>;
 

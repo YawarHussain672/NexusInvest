@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+  const [refreshKey, setRefreshKey] = useState(0);
   const router = useRouter();
 
   const fetchStats = async () => {
@@ -36,6 +37,11 @@ const Dashboard = () => {
   useEffect(() => {
     fetchStats();
   }, []);
+
+  const handleInvestmentCreated = () => {
+    fetchStats();
+    setRefreshKey(prev => prev + 1);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -134,14 +140,14 @@ const Dashboard = () => {
           {activeTab === 'overview' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="col-span-2">
-                 <Investments preview={true} />
+                 <Investments preview={true} refreshKey={refreshKey} />
               </div>
               <div className="col-span-1">
-                 <CreateInvestment onInvested={fetchStats} />
+                 <CreateInvestment onInvested={handleInvestmentCreated} />
               </div>
             </div>
           )}
-          {activeTab === 'investments' && <Investments />}
+          {activeTab === 'investments' && <Investments refreshKey={refreshKey} />}
           {activeTab === 'network' && <ReferralTree />}
         </div>
       </div>
