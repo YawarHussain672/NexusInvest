@@ -77,10 +77,7 @@ NexusInvest is designed to run entirely on Vercel's Edge/Serverless infrastructu
 
 1. **Push to GitHub**: Push your repository to your GitHub account.
 2. **Import Project**: In the Vercel Dashboard, click **Add New > Project**.
-3. **Set Root Directory**: 
-   > [!IMPORTANT]
-   > Since the application code is inside the `next-dashboard` folder, you **must** set the **Root Directory** to `next-dashboard` in the Vercel build settings.
-4. **Configure Environment Variables**: Add the following in the "Environment Variables" section:
+3. **Configure Environment Variables**: Add the following in the "Environment Variables" section:
    - `MONGO_URI`: Your MongoDB Atlas connection string.
    - `JWT_SECRET`: A random string for token encryption.
    - `CRON_SECRET`: A secure password for your Daily ROI task.
