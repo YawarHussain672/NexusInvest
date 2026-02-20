@@ -59,15 +59,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
-      {/* Dynamic Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px]" />
-      </div>
-
-      {/* Navbar */}
-      <nav className="relative z-10 sticky top-0 bg-gray-900/40 backdrop-blur-xl border-b border-gray-800/50 px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 shadow-sm">
+    <div className="min-h-screen bg-black text-gray-100 selection:bg-indigo-500/30 font-sans">
+      {/* Navbar - iOS style frosted top bar */}
+      <nav className="relative z-20 sticky top-0 bg-black/70 backdrop-blur-3xl border-b border-[#38383A]/60 px-4 sm:px-6 py-3 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
         <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center space-x-2">
             <Activity className="h-6 w-6 text-indigo-500" />
@@ -84,9 +78,9 @@ const Dashboard = () => {
           </button>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="text-xs sm:text-sm flex items-center w-full justify-between sm:justify-start bg-gray-800/50 py-1.5 px-3 rounded-full border border-gray-700/50">
-            <span className="text-gray-400 mr-2 whitespace-nowrap">Ref Code:</span>
-            <span className="font-mono text-indigo-300 font-semibold select-all break-all text-[11px] sm:text-sm">
+          <div className="text-[13px] flex items-center w-full justify-between sm:justify-start bg-[#1C1C1E] py-1.5 px-3 rounded-full border border-[#38383A]">
+            <span className="text-gray-400 mr-2 whitespace-nowrap font-medium">Ref Code:</span>
+            <span className="font-mono text-indigo-400 font-semibold select-all break-all text-[11px] sm:text-[13px]">
               {stats?.referralCode}
             </span>
           </div>
@@ -104,52 +98,53 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <StatCard
             title="Total Balance"
             value={`$${stats?.balance?.toFixed(2) || '0.00'}`}
-            icon={<DollarSign className="h-8 w-8 text-green-400" />}
-            gradient="from-green-500/10 to-transparent border-green-500/20"
+            icon={<DollarSign className="h-6 w-6 text-[#30D158]" />}
+            colorClass="text-[#30D158]"
           />
           <StatCard
             title="Total Invested"
             value={`$${stats?.totalInvested?.toFixed(2) || '0.00'}`}
-            icon={<TrendingUp className="h-8 w-8 text-indigo-400" />}
-            gradient="from-indigo-500/10 to-transparent border-indigo-500/20"
+            icon={<TrendingUp className="h-6 w-6 text-[#0A84FF]" />}
+            colorClass="text-[#0A84FF]"
           />
           <StatCard
             title="Total ROI"
             value={`$${stats?.totalROI?.toFixed(2) || '0.00'}`}
-            icon={<Activity className="h-8 w-8 text-purple-400" />}
-            subtitle={`+ $${stats?.todayRoi?.toFixed(2) || '0.00'} today`}
-            gradient="from-purple-500/10 to-transparent border-purple-500/20"
+            icon={<Activity className="h-6 w-6 text-[#BF5AF2]" />}
+            subtitle={`+$${stats?.todayRoi?.toFixed(2) || '0.00'}`}
+            colorClass="text-[#BF5AF2]"
           />
           <StatCard
             title="Level Income"
             value={`$${stats?.totalLevelIncome?.toFixed(2) || '0.00'}`}
-            icon={<Users className="h-8 w-8 text-blue-400" />}
-            subtitle={`+ $${stats?.todayLevelIncome?.toFixed(2) || '0.00'} today`}
-            gradient="from-blue-500/10 to-transparent border-blue-500/20"
+            icon={<Users className="h-6 w-6 text-[#FF9F0A]" />}
+            subtitle={`+$${stats?.todayLevelIncome?.toFixed(2) || '0.00'}`}
+            colorClass="text-[#FF9F0A]"
           />
         </div>
 
         {/* Tabs */}
-        <div className="relative z-10 border-b border-gray-800/60 mb-8 overflow-x-auto hide-scrollbar">
-          <nav className="-mb-px flex space-x-6 sm:space-x-8 min-w-max pb-1">
+        {/* iOS style Segmented Control Tabs */}
+        <div className="flex justify-center mb-8 relative z-10">
+          <div className="bg-[#1C1C1E] p-1 rounded-xl flex space-x-1 w-full max-w-md border border-[#38383A]/50 shrink-0 overflow-x-auto hide-scrollbar">
             {['overview', 'investments', 'network'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-all duration-300 capitalize whitespace-nowrap ${
+                className={`flex-1 py-1.5 px-4 text-[13px] font-medium rounded-lg transition-all duration-200 capitalize whitespace-nowrap ${
                   activeTab === tab
-                    ? 'border-indigo-500 text-white'
-                    : 'border-transparent text-gray-500 hover:text-gray-300 hover:border-gray-700'
+                    ? 'bg-[#38383A] text-white shadow-sm'
+                    : 'text-gray-400 hover:text-gray-200'
                 }`}
               >
                 {tab}
               </button>
             ))}
-          </nav>
+          </div>
         </div>
 
         {/* Tab Content */}
@@ -179,18 +174,17 @@ const Dashboard = () => {
   );
 };
 
-const StatCard = ({ title, value, icon, subtitle, gradient }) => (
-  <div className={`relative overflow-hidden bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-xl transition-transform hover:-translate-y-1 duration-300`}>
-    <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-20 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none`}></div>
-    <div className="flex items-center justify-between relative z-10">
-      <div>
-        <p className="text-sm font-medium text-gray-400 mb-1">{title}</p>
-        <p className="text-3xl font-bold text-white tracking-tight">{value}</p>
-        {subtitle && <p className="text-xs text-gray-400 mt-2 font-medium bg-gray-800/60 inline-block px-2 py-0.5 rounded-md border border-gray-700/50">{subtitle}</p>}
-      </div>
-      <div className={`p-4 rounded-2xl bg-gradient-to-br ${gradient} bg-opacity-10 backdrop-blur-sm border border-white/5 shadow-inner`}>
+const StatCard = ({ title, value, icon, subtitle, colorClass }) => (
+  <div className={`bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-5 transition-transform hover:scale-[1.02] duration-300 ease-out`}>
+    <div className="flex items-center justify-between mb-3">
+      <p className="text-[15px] font-medium text-gray-400">{title}</p>
+      <div className={`p-2 rounded-full bg-[#38383A]/40 ${colorClass}`}>
         {icon}
       </div>
+    </div>
+    <div>
+      <p className="text-3xl font-bold tracking-tight text-white mb-1">{value}</p>
+      {subtitle && <p className={`text-[13px] font-medium ${colorClass}`}>{subtitle}</p>}
     </div>
   </div>
 );

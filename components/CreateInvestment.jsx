@@ -37,31 +37,29 @@ const CreateInvestment = ({ onInvested }) => {
   };
 
   return (
-    <div className="bg-gray-800/80 backdrop-blur-md border border-gray-700/50 rounded-2xl p-5 shadow-2xl relative overflow-hidden">
-      {/* Subtle modern glow */}
-      <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full pointer-events-none"></div>
+    <div className="bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-6 relative overflow-hidden">
       
-      <div className="flex items-center justify-between mb-5 relative z-10">
-        <h3 className="text-lg font-bold text-white tracking-tight">Invest</h3>
-        <span className="text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md border border-emerald-400/20">
+      <div className="flex items-center justify-between mb-6 relative z-10">
+        <h3 className="text-xl font-bold text-white tracking-tight">Invest</h3>
+        <span className="text-[13px] font-semibold text-[#30D158] bg-[#30D158]/10 px-3 py-1 rounded-full">
           {currentPlan.roi} Daily ROI
         </span>
       </div>
       
-      <form onSubmit={handleInvest} className="space-y-4 relative z-10">
-        {error && <div className="p-2.5 text-xs text-red-400 bg-red-400/10 rounded-lg border border-red-400/20">{error}</div>}
+      <form onSubmit={handleInvest} className="space-y-5 relative z-10">
+        {error && <div className="p-3 text-[13px] text-red-500 bg-red-500/10 rounded-xl font-medium">{error}</div>}
         
         {/* Segmented Control for Plans */}
-        <div className="bg-gray-900/50 p-1 rounded-xl flex items-center justify-between border border-gray-700/50">
+        <div className="bg-black/50 p-1 rounded-xl flex items-center justify-between border border-[#38383A]/50">
           {Object.keys(plans).map((p) => (
             <button
               key={p}
               type="button"
               onClick={() => setPlan(p)}
-              className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
+              className={`flex-1 py-2 text-[13px] font-semibold rounded-lg transition-all duration-200 ${
                 plan === p
-                  ? 'bg-gray-700 text-white shadow-sm'
-                  : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                  ? 'bg-[#38383A] text-white shadow-sm'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
               }`}
             >
               {p}
@@ -71,23 +69,23 @@ const CreateInvestment = ({ onInvested }) => {
 
         {/* Minimal Amount Input */}
         <div>          
-          <div className="relative flex items-center bg-gray-900/30 border border-gray-700/50 rounded-xl overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
-             <div className="pl-4 pr-2 text-gray-500 font-medium">$</div>
+          <div className="relative flex items-center bg-black/40 border border-[#38383A] rounded-2xl overflow-hidden focus-within:border-[#0A84FF] focus-within:ring-1 focus-within:ring-[#0A84FF] transition-all">
+             <div className="pl-5 pr-2 text-gray-500 font-medium text-lg">$</div>
              <input
                 type="number"
                 min={currentPlan.min}
                 required
-                className="w-full py-3 bg-transparent text-white placeholder-gray-600 text-lg font-semibold focus:outline-none"
+                className="w-full py-4 bg-transparent text-white placeholder-gray-600 text-xl font-bold focus:outline-none"
                 placeholder={`Min ${currentPlan.min}`}
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
-              <div className="pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">USD</div>
+              <div className="pr-5 text-[13px] font-bold text-gray-500 uppercase tracking-wider">USD</div>
           </div>
-          <div className="mt-2 text-[11px] text-gray-500 flex justify-between px-1">
-             <span>Lock-in: {currentPlan.duration}</span>
+          <div className="mt-3 text-[13px] text-gray-500 flex justify-between px-2 font-medium">
+             <span>Lock-in: <span className="text-white">{currentPlan.duration}</span></span>
              {amount && Number(amount) >= currentPlan.min ? (
-                <span className="text-indigo-400 font-medium">Est. Daily: ${((Number(amount) * parseFloat(currentPlan.roi)) / 100).toFixed(2)}</span>
+                <span className="text-[#30D158]">Est. Daily: ${((Number(amount) * parseFloat(currentPlan.roi)) / 100).toFixed(2)}</span>
              ) : (
                 <span>Dynamic Est.</span>
              )}
@@ -97,7 +95,7 @@ const CreateInvestment = ({ onInvested }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-lg shadow-indigo-500/25 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed group mt-2"
+          className="w-full py-4 px-4 rounded-2xl text-[15px] font-bold text-white bg-[#0A84FF] hover:bg-[#0A84FF]/90 focus:outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed group mt-4 active:scale-[0.98]"
         >
           {loading ? (
             <span className="flex items-center justify-center">

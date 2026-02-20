@@ -21,26 +21,25 @@ const ReferralTree = () => {
     fetchTree();
   }, []);
 
-  if (loading) return <div className="animate-pulse h-64 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl"></div>;
+  if (loading) return <div className="animate-pulse h-64 bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl"></div>;
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/5 blur-3xl rounded-full pointer-events-none"></div>
-      <div className="flex items-center mb-6 border-b border-gray-700/50 pb-4">
-        <div className="p-3 bg-indigo-500/10 rounded-xl mr-4">
-          <Network className="w-6 h-6 text-indigo-400" />
+    <div className="bg-[#1C1C1E] border border-[#38383A]/60 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+      <div className="flex items-center mb-6 border-b border-[#38383A]/60 pb-4">
+        <div className="p-3 bg-blue-500/10 rounded-2xl mr-4">
+          <Network className="w-6 h-6 text-[#0A84FF]" />
         </div>
         <div>
-          <h3 className="text-xl font-semibold text-white">Referral Network</h3>
-          <p className="text-sm text-gray-400">View your downline up to 3 levels deep</p>
+          <h3 className="text-xl font-bold text-white tracking-tight">Referral Network</h3>
+          <p className="text-[13px] text-gray-400 font-medium">Your multi-level downline team</p>
         </div>
       </div>
 
       {treeData.length === 0 ? (
-        <div className="text-center py-12 bg-gray-900/40 rounded-xl border border-dashed border-gray-700/50 relative z-10">
-          <UserSquare2 className="w-10 h-10 mx-auto text-gray-600 mb-3" />
-          <p className="text-gray-400 font-medium">You haven't referred anyone yet.</p>
-          <p className="text-sm text-gray-500 mt-1">Share your referral code to start earning level income!</p>
+        <div className="text-center py-12 bg-black/40 rounded-2xl border border-dashed border-[#38383A] relative z-10">
+          <UserSquare2 className="w-10 h-10 mx-auto text-gray-500 mb-3" />
+          <p className="text-gray-300 font-medium">You haven't referred anyone yet.</p>
+          <p className="text-[13px] text-gray-500 mt-1">Share your referral code to start earning level income!</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -60,42 +59,42 @@ const TreeNode = ({ node }) => {
   return (
     <div className="text-sm text-gray-300 relative">
       <div 
-        className={`flex items-center p-3 rounded-lg border transition-colors ${
-          hasChildren ? 'cursor-pointer hover:bg-gray-700/50 hover:border-gray-600' : 'bg-gray-900/30'
-        } ${expanded ? 'bg-gray-700/30 border-gray-600' : 'border-transparent'}`}
+        className={`flex items-center p-3 rounded-2xl border transition-colors ${
+          hasChildren ? 'cursor-pointer hover:bg-white/5 border-[#38383A]/60' : 'bg-black/30 border-transparent'
+        } ${expanded ? 'bg-[#38383A]/40 border-[#38383A]' : ''}`}
         onClick={() => hasChildren && setExpanded(!expanded)}
       >
         <div className="mr-3 w-6 flex justify-center">
           {hasChildren ? (
-            expanded ? <ChevronDown className="w-4 h-4 text-indigo-400" /> : <ChevronRight className="w-4 h-4 text-gray-500" />
+            expanded ? <ChevronDown className="w-5 h-5 text-[#0A84FF]" /> : <ChevronRight className="w-5 h-5 text-gray-500" />
           ) : (
-            <span className="w-1.5 h-1.5 rounded-full bg-gray-600"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
           )}
         </div>
         
         <div className="flex-1 flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-0">
           <div className="flex items-center space-x-3">
-            <div className={`p-1.5 rounded text-white text-xs font-bold leading-none ${
-              node.level === 1 ? 'bg-indigo-500' : node.level === 2 ? 'bg-purple-500' : 'bg-blue-500'
-            }`}>
-              L{node.level}
-            </div>
-            <span className="font-medium text-white truncate max-w-[120px] sm:max-w-none">{node.username}</span>
+            <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-full bg-[#0A84FF]/10 text-[#0A84FF] border border-[#0A84FF]/20 flex shrink-0">
+              LVL {node.level}
+            </span>
+            <span className="font-semibold text-white truncate max-w-[120px] sm:max-w-none">{node.username}</span>
           </div>
           
-          <div className="flex justify-between sm:justify-end items-center space-x-0 sm:space-x-6 text-xs text-gray-400 w-full sm:w-auto">
-            <span>Invested: <span className="text-green-400 font-medium">${node.totalInvested}</span></span>
+          <div className="flex flex-col sm:flex-row justify-between sm:justify-end items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-6 text-[13px] text-gray-500 w-full sm:w-auto mt-2 sm:mt-0 px-1 sm:px-0 font-medium">
+            <span className="flex items-center">
+              Invested: <span className="text-[#30D158] font-bold ml-1">${Number(node.totalInvested || 0).toFixed(2)}</span>
+            </span>
             <span>Joined: {new Date(node.joinedAt).toLocaleDateString()}</span>
           </div>
         </div>
       </div>
 
       {expanded && hasChildren && (
-        <div className="ml-8 mt-3 pl-4 border-l-2 border-gray-700/50 space-y-3 relative">
+        <div className="ml-8 mt-3 pl-4 border-l-2 border-[#38383A]/50 space-y-3 relative">
           {node.children.map((child) => (
              <div key={child.id} className="relative">
                 {/* Visual connecting line */}
-                <div className="absolute -left-4 top-5 w-4 h-0.5 bg-gray-700/50"></div>
+                <div className="absolute -left-4 top-5 w-4 h-[2px] bg-[#38383A]/50"></div>
                 <TreeNode node={child} />
              </div>
           ))}
