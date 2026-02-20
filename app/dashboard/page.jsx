@@ -60,23 +60,33 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Navbar */}
-      <nav className="bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <Activity className="h-6 w-6 text-indigo-500" />
-          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-            NexusInvest
-          </span>
+      <nav className="bg-gray-800 border-b border-gray-700 px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+        <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="flex items-center space-x-2">
+            <Activity className="h-6 w-6 text-indigo-500" />
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+              NexusInvest
+            </span>
+          </div>
+          {/* Mobile Logout (Visible on small screens) */}
+          <button
+            onClick={handleLogout}
+            className="sm:hidden flex items-center text-gray-400 hover:text-white transition-colors"
+          >
+            <LogOut className="h-5 w-5" />
+          </button>
         </div>
-        <div className="flex items-center space-x-6">
-          <div className="text-sm">
-            <span className="text-gray-400">Referral Code: </span>
-            <span className="font-mono bg-gray-700 px-2 py-1 rounded text-indigo-300 select-all">
+        <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
+          <div className="text-xs sm:text-sm flex items-center">
+            <span className="text-gray-400 mr-2">Ref Code:</span>
+            <span className="font-mono bg-gray-700 px-2 py-1 rounded text-indigo-300 select-all truncate max-w-[120px] sm:max-w-[200px]">
               {stats?.referralCode}
             </span>
           </div>
+          {/* Desktop Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center text-gray-400 hover:text-white transition-colors"
+            className="hidden sm:flex items-center text-gray-400 hover:text-white transition-colors"
           >
             <LogOut className="h-5 w-5 mr-1" />
             <span className="text-sm">Logout</span>
@@ -117,13 +127,13 @@ const Dashboard = () => {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-700 mb-6">
-          <nav className="-mb-px flex space-x-8">
+        <div className="border-b border-gray-700 mb-6 overflow-x-auto hide-scrollbar">
+          <nav className="-mb-px flex space-x-6 sm:space-x-8 min-w-max pb-1">
             {['overview', 'investments', 'network'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors capitalize ${
+                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-colors capitalize whitespace-nowrap ${
                   activeTab === tab
                     ? 'border-indigo-500 text-indigo-400'
                     : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
@@ -138,11 +148,11 @@ const Dashboard = () => {
         {/* Tab Content */}
         <div className="mt-6">
           {activeTab === 'overview' && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="col-span-2">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
+              <div className="col-span-1 xl:col-span-2 order-2 xl:order-1">
                  <Investments preview={true} refreshKey={refreshKey} />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 order-1 xl:order-2">
                  <CreateInvestment onInvested={handleInvestmentCreated} />
               </div>
             </div>

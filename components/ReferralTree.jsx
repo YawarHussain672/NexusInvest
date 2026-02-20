@@ -72,19 +72,19 @@ const TreeNode = ({ node }) => {
           )}
         </div>
         
-        <div className="flex-1 flex justify-between items-center">
+        <div className="flex-1 flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-0">
           <div className="flex items-center space-x-3">
-            <div className={`p-1.5 rounded text-white text-xs font-bold ${
+            <div className={`p-1.5 rounded text-white text-xs font-bold leading-none ${
               node.level === 1 ? 'bg-indigo-500' : node.level === 2 ? 'bg-purple-500' : 'bg-blue-500'
             }`}>
               L{node.level}
             </div>
-            <span className="font-medium text-white">{node.username}</span>
+            <span className="font-medium text-white truncate max-w-[120px] sm:max-w-none">{node.username}</span>
           </div>
           
-          <div className="flex items-center space-x-6 text-xs text-gray-400">
+          <div className="flex justify-between sm:justify-end items-center space-x-0 sm:space-x-6 text-xs text-gray-400 w-full sm:w-auto">
             <span>Invested: <span className="text-green-400 font-medium">${node.totalInvested}</span></span>
-            <span className="hidden sm:inline">Joined: {new Date(node.joinedAt).toLocaleDateString()}</span>
+            <span>Joined: {new Date(node.joinedAt).toLocaleDateString()}</span>
           </div>
         </div>
       </div>
