@@ -23,12 +23,17 @@ const Investments = ({ preview = false, refreshKey = 0 }) => {
 
   if (loading) return <div className="animate-pulse h-32 bg-gray-800 rounded-xl"></div>;
 
-  const displayInvestments = preview ? investments.slice(0, 3) : investments;
+  const displayInvestments = preview ? investments.slice(0, 5) : investments;
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-xl">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-semibold text-white">Your Investments</h3>
+        {preview && investments.length > 5 && (
+          <span className="text-xs font-medium bg-gray-700 text-gray-300 px-3 py-1 rounded-full">
+            Showing latest 5 of {investments.length}
+          </span>
+        )}
       </div>
       {investments.length === 0 ? (
         <div className="text-center py-8 text-gray-400">
