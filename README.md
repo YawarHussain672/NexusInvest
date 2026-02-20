@@ -1,101 +1,116 @@
-# MLM Investment Dashboard
+# NexusInvest: Premium MLM Investment Dashboard
 
-A full-stack MERN application that implements a Multi-Level Marketing (MLM) investment system with daily ROI calculations, multi-tier referral tracking, and a premium React dashboard.
-
-## Overview
-
-This project provides a robust foundation for an investment platform where users can:
-- Register and receive a unique **Referral Code**.
-- View their dashboard with real-time stats (Total Balance, Total Invested, Daily ROI, Level Income).
-- Purchase investment plans (e.g., Basic, Pro, Elite) that generate daily Returns on Investment (ROI).
-- Refer other users to earn **Level Income** commissions based on downline investments.
-- Visualize their referral network up to 3 levels deep via an interactive tree component.
-
-## Tech Stack
-
-**Frontend:**
-- React (Vite)
-- Tailwind CSS 
-- React Router DOM
-- Axios
-- Lucide React (Icons)
-
-**Backend:**
-- Node.js & Express
-- MongoDB (Mongoose)
-- JSON Web Token (JWT) & BcryptJS (Authentication)
-- Node-Cron (Task Scheduling)
-
-## Features
-
-### 1. Robust MongoDB Schemas
-- **User:** Manages authentication, stores the referral tree linkage (`referredBy`), and tracks running financial balances.
-- **Investment:** Stores active user investment plans, amounts, daily ROI rates, and duration.
-- **LevelIncome & RoiHistory:** Transactional tables that log every commission and ROI payout securely.
-
-### 2. Automated Daily ROI (Cron Job)
-A `node-cron` job runs daily at midnight (`0 0 * * *`) to process returns for all active investments.
-- **Idempotency:** The system queries `RoiHistory` before paying out to ensure a specific investment is never paid twice on the same calendar day.
-
-### 3. Multi-Tier Referral System
-When a user makes an investment, the backend traverses the referral tree and distributes **Level Income** to their upline.
-- **Tier 1:** 5% commission
-- **Tier 2:** 3% commission
-- **Tier 3:** 1% commission
-
-### 4. Premium React Dashboard
-A modern, dark-themed, glassmorphism UI offering:
-- Secure JWT-based Login and Registration.
-- Highly optimized Stat Cards utilizing live database aggregations.
-- A widget to view active investments and purchase new plans.
-- A **Referral Network** tab that recursively fetches and displays a user's entire downline network elegantly.
+NexusInvest is a sophisticated, full-stack serverless Next.js application designed for Multi-Level Marketing (MLM) and investment management. It features a stunning, high-density dashboard, real-time ROI tracking, and a multi-tier referral system—all optimized for seamless deployment on Vercel.
 
 ---
 
-## Local Development Setup
+## 🚀 Key Features
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- MongoDB Database (Local or Atlas)
+### 💎 Smart Investment Engine
+Choose from tiered investment plans, each with automated daily payouts:
+- **Basic Plan**: 1.0% daily ROI for 30 days.  
+- **Pro Plan**: 1.5% daily ROI for 60 days.  
+- **Elite Plan**: 2.0% daily ROI for 90 days.  
 
-### 1. Clone & Install Dependencies
+### 📈 Real-Time Dashboard
+A premium, dark-themed analytics command center providing detailed insights:
+- **Financial Metrics**: Total Balance, Total Invested, Total ROI, and Level Income.
+- **Daily Performance**: Integrated "Today ROI" and "Today Level Income" tracking.
+- **Network Visuals**: Interactive "Overview", "Investments", and "Network" tabs.
 
-Open two terminal windows (one for the backend, one for the frontend).
+### 🔗 Multi-Tier Referral System
+Built-in growth mechanisms with automated commission distribution across 3 levels:
+- **Level 1**: 5% commission on direct referrals.
+- **Level 2**: 3% commission on second-degree referrals.
+- **Level 3**: 1% commission on third-degree referrals.
+- **Unique IDs**: Auto-generated referral codes for every user upon signup.
 
-**Backend:**
-```bash
-cd backend
-npm install
-```
+### 🛡️ Secure Infrastructure
+- **Authentication**: JWT-secured signups and logins with encrypted password hashing (bcrypt).
+- **Serverless Automation**: Automated ROI payouts using Vercel Cron Jobs (Midnight schedule).
+- **Data Integrity**: Idempotent payout logic ensuring users are paid exactly once per day per investment.
 
-**Frontend:**
-```bash
-cd frontend
-npm install
-```
+---
 
-### 2. Environment Configuration
+## 🛠️ Tech Stack
 
-In the `backend` directory, create a `.env` file:
+- **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [Tailwind CSS v4](https://tailwindcss.com/)
+- **Backend**: Next.js Serverless Route Handlers
+- **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas) with [Mongoose](https://mongoosejs.com/)
+- **Styling**: Glassmorphism, Gradient Overlays, and Lucide React Icons
+- **Scheduling**: Vercel Cron Jobs (`vercel.json`)
+
+---
+
+## ⚙️ Installation & Local Setup
+
+### 1. Prerequisites
+- Node.js (Latest LTS recommended)
+- MongoDB Atlas account (for Connection URI)
+
+### 2. Configure Environment
+Create a `.env.local` file in the root directory:
 ```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
+# MongoDB Connection
+MONGO_URI=mongodb+srv://...
+
+# Security
+JWT_SECRET=your_ultra_secure_jwt_secret_key
+
+# Vercel Cron Secure Passcode
+CRON_SECRET=your_secure_cron_password
 ```
 
-### 3. Run the Application
-
-**Run Backend:**
+### 3. Run Development Server
 ```bash
-cd backend
+npm install
 npm run dev
 ```
+Navigate to `http://localhost:3000` to view the application.
 
-**Run Frontend:**
-```bash
-cd frontend
-npm run dev
+---
+
+## ☁️ Deployment Guide
+
+### Deploying to Vercel
+NexusInvest is designed to run entirely on Vercel's Edge/Serverless infrastructure. Follow these steps for a successful launch:
+
+1. **Push to GitHub**: Push your repository to your GitHub account.
+2. **Import Project**: In the Vercel Dashboard, click **Add New > Project**.
+3. **Set Root Directory**: 
+   > [!IMPORTANT]
+   > Since the application code is inside the `next-dashboard` folder, you **must** set the **Root Directory** to `next-dashboard` in the Vercel build settings.
+4. **Configure Environment Variables**: Add the following in the "Environment Variables" section:
+   - `MONGO_URI`: Your MongoDB Atlas connection string.
+   - `JWT_SECRET`: A random string for token encryption.
+   - `CRON_SECRET`: A secure password for your Daily ROI task.
+5. **Database Access**: Ensure your MongoDB Atlas cluster has "Network Access" set to **Allow Access from Anywhere** (0.0.0.0/0), as Vercel uses dynamic IP addresses.
+6. **Deploy**: Click **Deploy**. Vercel will automatically detect the configurations and start the build.
+
+### Vercel Cron Automation
+The `vercel.json` file inside the project directory tells Vercel to ping `/api/cron/roi` every day at Midnight.
+- **Verification**: Once deployed, you can see your active cron jobs in the **"Settings > Cron Jobs"** tab of your Vercel project dashboard.
+- **Manual Trigger**: You can manually test the payout logic by sending a GET request with the `CRON_SECRET` header.
+  - **Terminal / Postman Example**:
+    ```bash
+    curl -H "Authorization: Bearer YOUR_CRON_SECRET" https://your-domain.com/api/cron/roi
+    ```
+
+---
+
+## 📁 Project Structure
+
+```text
+/next-dashboard/
+├── app/               # Next.js App Router (Pages & API Routes)
+│   ├── api/           # Serverless Route Handlers
+│   │   ├── auth/      # Authentication Logic
+│   │   ├── cron/      # ROI Payout Cron Jobs
+│   │   └── dashboard/ # Analytics Data Extraction
+│   ├── dashboard/     # Main Dashboard UI
+│   └── login/         # Auth Pages
+├── components/        # Shared React Client Components
+├── lib/               # Shared Utilities (Models, DB, Auth, Logic)
+├── public/            # Static Assets
+└── vercel.json        # Vercel Cron Scheduling Config
 ```
-
-The React app will be available at `http://localhost:5173`.
-The Express server will be running on `http://localhost:5000`.

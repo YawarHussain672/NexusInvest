@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
-import { LogOut, LayoutDashboard, DollarSign, Activity, Users, PlusCircle } from 'lucide-react';
+import { LogOut, LayoutDashboard, DollarSign, Activity, Users, PlusCircle, TrendingUp } from 'lucide-react';
 import Investments from '@/components/Investments';
 import ReferralTree from '@/components/ReferralTree';
 import CreateInvestment from '@/components/CreateInvestment';
