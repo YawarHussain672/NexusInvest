@@ -59,9 +59,15 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px]" />
+      </div>
+
       {/* Navbar */}
-      <nav className="bg-gray-800 border-b border-gray-700 px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+      <nav className="relative z-10 sticky top-0 bg-gray-900/40 backdrop-blur-xl border-b border-gray-800/50 px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 shadow-sm">
         <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center space-x-2">
             <Activity className="h-6 w-6 text-indigo-500" />
@@ -78,9 +84,9 @@ const Dashboard = () => {
           </button>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="text-xs sm:text-sm flex items-center w-full justify-between sm:justify-start">
+          <div className="text-xs sm:text-sm flex items-center w-full justify-between sm:justify-start bg-gray-800/50 py-1.5 px-3 rounded-full border border-gray-700/50">
             <span className="text-gray-400 mr-2 whitespace-nowrap">Ref Code:</span>
-            <span className="font-mono bg-gray-700 px-2 py-1 rounded text-indigo-300 select-all break-all text-[10px] sm:text-sm">
+            <span className="font-mono text-indigo-300 font-semibold select-all break-all text-[11px] sm:text-sm">
               {stats?.referralCode}
             </span>
           </div>
@@ -128,16 +134,16 @@ const Dashboard = () => {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-700 mb-6 overflow-x-auto hide-scrollbar">
+        <div className="relative z-10 border-b border-gray-800/60 mb-8 overflow-x-auto hide-scrollbar">
           <nav className="-mb-px flex space-x-6 sm:space-x-8 min-w-max pb-1">
             {['overview', 'investments', 'network'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-colors capitalize whitespace-nowrap ${
+                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-all duration-300 capitalize whitespace-nowrap ${
                   activeTab === tab
-                    ? 'border-indigo-500 text-indigo-400'
-                    : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-300'
+                    ? 'border-indigo-500 text-white'
+                    : 'border-transparent text-gray-500 hover:text-gray-300 hover:border-gray-700'
                 }`}
               >
                 {tab}
@@ -147,7 +153,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="mt-6">
+        <div className="relative z-10">
           {activeTab === 'overview' && (
             <div className="space-y-6 sm:space-y-8">
               {/* Top Row: Recent Investments & New Investment */}
@@ -174,14 +180,15 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, value, icon, subtitle, gradient }) => (
-  <div className={`bg-gradient-to-br ${gradient} border rounded-2xl p-6 shadow-lg backdrop-blur-xl`}>
-    <div className="flex items-center justify-between">
+  <div className={`relative overflow-hidden bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-xl transition-transform hover:-translate-y-1 duration-300`}>
+    <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-20 blur-2xl rounded-full -mr-10 -mt-10 pointer-events-none`}></div>
+    <div className="flex items-center justify-between relative z-10">
       <div>
         <p className="text-sm font-medium text-gray-400 mb-1">{title}</p>
-        <p className="text-3xl font-bold text-white">{value}</p>
-        {subtitle && <p className="text-xs text-indigo-300 mt-2">{subtitle}</p>}
+        <p className="text-3xl font-bold text-white tracking-tight">{value}</p>
+        {subtitle && <p className="text-xs text-gray-400 mt-2 font-medium bg-gray-800/60 inline-block px-2 py-0.5 rounded-md border border-gray-700/50">{subtitle}</p>}
       </div>
-      <div className="p-3 bg-gray-800/50 rounded-xl">
+      <div className={`p-4 rounded-2xl bg-gradient-to-br ${gradient} bg-opacity-10 backdrop-blur-sm border border-white/5 shadow-inner`}>
         {icon}
       </div>
     </div>

@@ -21,12 +21,15 @@ const Investments = ({ preview = false, refreshKey = 0 }) => {
     fetchInvestments();
   }, [refreshKey]);
 
-  if (loading) return <div className="animate-pulse h-32 bg-gray-800 rounded-xl"></div>;
+  if (loading) return <div className="animate-pulse h-32 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl"></div>;
 
   const displayInvestments = preview ? investments.slice(0, 5) : investments;
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-xl">
+    <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+      {/* Subtle glow */}
+      <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
+      
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-semibold text-white">Your Investments</h3>
         {preview && investments.length > 5 && (
@@ -36,8 +39,10 @@ const Investments = ({ preview = false, refreshKey = 0 }) => {
         )}
       </div>
       {investments.length === 0 ? (
-        <div className="text-center py-8 text-gray-400">
-          No investments found. Start investing to earn daily ROI!
+        <div className="text-center py-12 bg-gray-900/40 rounded-xl border border-dashed border-gray-700/50">
+          <Clock className="w-10 h-10 mx-auto text-gray-600 mb-3" />
+          <p className="text-gray-400 font-medium">No investments found.</p>
+          <p className="text-sm text-gray-500 mt-1">Start investing to earn daily ROI!</p>
         </div>
       ) : (
         <div className="overflow-x-auto">
@@ -51,11 +56,11 @@ const Investments = ({ preview = false, refreshKey = 0 }) => {
                 <th className="pb-3 font-medium">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/50">
+            <tbody className="divide-y divide-gray-700/30">
               {displayInvestments.map((inv) => (
-                <tr key={inv._id} className="hover:bg-gray-700/20 transition-colors">
-                  <td className="py-4 font-medium text-white">{inv.plan}</td>
-                  <td className="py-4 text-indigo-300 font-semibold">${inv.amount}</td>
+                <tr key={inv._id} className="hover:bg-gray-700/10 transition-colors group">
+                  <td className="py-4 font-medium text-white group-hover:text-indigo-300 transition-colors">{inv.plan}</td>
+                  <td className="py-4 text-emerald-400 font-semibold">${inv.amount}</td>
                   <td className="py-4 text-gray-300">{inv.dailyRoiRate}%</td>
                   <td className="py-4 text-gray-400 text-sm">
                     {new Date(inv.startDate).toLocaleDateString()}

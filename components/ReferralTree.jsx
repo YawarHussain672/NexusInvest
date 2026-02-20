@@ -21,10 +21,11 @@ const ReferralTree = () => {
     fetchTree();
   }, []);
 
-  if (loading) return <div className="animate-pulse h-64 bg-gray-800 rounded-xl"></div>;
+  if (loading) return <div className="animate-pulse h-64 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl"></div>;
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-xl">
+    <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/5 blur-3xl rounded-full pointer-events-none"></div>
       <div className="flex items-center mb-6 border-b border-gray-700/50 pb-4">
         <div className="p-3 bg-indigo-500/10 rounded-xl mr-4">
           <Network className="w-6 h-6 text-indigo-400" />
@@ -36,10 +37,10 @@ const ReferralTree = () => {
       </div>
 
       {treeData.length === 0 ? (
-        <div className="text-center py-12 text-gray-400 bg-gray-900/50 rounded-xl border border-dashed border-gray-700">
-          <UserSquare2 className="w-12 h-12 mx-auto text-gray-600 mb-3" />
-          <p>You haven't referred anyone yet.</p>
-          <p className="text-sm mt-1">Share your referral code to start earning level income!</p>
+        <div className="text-center py-12 bg-gray-900/40 rounded-xl border border-dashed border-gray-700/50 relative z-10">
+          <UserSquare2 className="w-10 h-10 mx-auto text-gray-600 mb-3" />
+          <p className="text-gray-400 font-medium">You haven't referred anyone yet.</p>
+          <p className="text-sm text-gray-500 mt-1">Share your referral code to start earning level income!</p>
         </div>
       ) : (
         <div className="space-y-4">

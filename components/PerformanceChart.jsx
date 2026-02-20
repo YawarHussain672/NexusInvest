@@ -60,7 +60,7 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
 
   if (loading) {
     return (
-      <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-xl h-[300px] flex items-center justify-center">
+      <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-xl h-[300px] flex items-center justify-center">
         <div className="animate-pulse flex space-x-4">
           <div className="rounded-full bg-gray-700 h-10 w-10"></div>
           <div className="flex-1 space-y-6 py-1">
@@ -79,7 +79,9 @@ const PerformanceChart = ({ refreshKey = 0 }) => {
   }
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-xl h-[320px] flex flex-col">
+    <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl h-[320px] flex flex-col relative overflow-hidden">
+      {/* Subtle glow */}
+      <div className="absolute top-0 right-1/4 w-64 h-32 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-semibold text-white">7-Day Growth Overview</h3>
       </div>
