@@ -77,9 +77,9 @@ const Dashboard = () => {
           </button>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="text-xs sm:text-sm flex items-center">
-            <span className="text-gray-400 mr-2">Ref Code:</span>
-            <span className="font-mono bg-gray-700 px-2 py-1 rounded text-indigo-300 select-all truncate max-w-[120px] sm:max-w-[200px]">
+          <div className="text-xs sm:text-sm flex items-center w-full justify-between sm:justify-start">
+            <span className="text-gray-400 mr-2 whitespace-nowrap">Ref Code:</span>
+            <span className="font-mono bg-gray-700 px-2 py-1 rounded text-indigo-300 select-all break-all text-[10px] sm:text-sm">
               {stats?.referralCode}
             </span>
           </div>
