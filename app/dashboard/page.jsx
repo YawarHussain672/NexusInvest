@@ -71,9 +71,9 @@ const Dashboard = () => {
           {/* Mobile Logout (Visible on small screens) */}
           <button
             onClick={handleLogout}
-            className="sm:hidden flex items-center text-gray-400 hover:text-white transition-colors"
+            className="sm:hidden flex items-center justify-center p-2 text-gray-400 hover:text-white transition-colors"
           >
-            <LogOut className="h-5 w-5" />
+            <LogOut className="h-7 w-7" />
           </button>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end">
